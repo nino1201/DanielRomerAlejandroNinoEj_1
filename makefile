@@ -1,3 +1,4 @@
+
 placas: placas.pdf  
 	evince placas.pdf 
 placas.pdf: grafica.py data.dat	
