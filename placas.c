@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     {
       if(rank==0)
 	{
-	  a=1;
+	  a=0;
 	  b=d;
 	  V_new = recorrido(m, a, b, x0, x1, y0, y1, V);
 	  for(i=1;i < m-1; i++)
@@ -70,7 +70,7 @@ int main(int argc, char** argv)
 	}else if(rank==size-1)
 	{
 	  a=(size-1)*d-1;
-	  b=m-1;
+	  b=m;
 	  V_new = recorrido(m, a, b, x0, x1, y0, y1, V);
 	  for(i=1;i < m-1; i++)
 	    {
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
 	}else
 	{
 	  a=rank*d -1;
-	  b=rank*d;
+	  b=(rank+1)*d;
 	  V_new = recorrido(m, a, b, x0, x1, y0, y1, V);
 	  for(i=1;i < m-1; i++)
 	    {
@@ -102,14 +102,14 @@ int main(int argc, char** argv)
 	      out_array2[i]=V_new[transformer(i,b-1)];
 		for(j=a+1;j < b-1; j++)
 		  {
-		    V[transformer(i,j)] = V_new[transformer(i,j)] ;
+		    V[transformer(i,j)] = V_new[transformer(i,j)];
 		  }
 	    }
 	  MPI_Irecv(in_array1, m,MPI_DOUBLE, rank-1, 0, MPI_COMM_WORLD, &rec_req2);
 	  MPI_Irecv(in_array2, m,MPI_DOUBLE, rank+1, 0, MPI_COMM_WORLD, &rec_req1);
 	        
-	  MPI_Isend(out_array1, m,MPI_DOUBLE, rank-1, 0, MPI_COMM_WORLD, &send_req1);
-	  MPI_Isend(out_array2, m,MPI_DOUBLE, rank+1, 0, MPI_COMM_WORLD, &send_req2);
+	  MPI_Isend(out_array1, m,MPI_DOUBLE, rank-1, 0, MPI_COMM_WORLD, &send_req2);
+	  MPI_Isend(out_array2, m,MPI_DOUBLE, rank+1, 0, MPI_COMM_WORLD, &send_req1);
 
 	  MPI_Wait(&send_req1, &stat_s1);
 	  MPI_Wait(&rec_req1, &stat_r1);
