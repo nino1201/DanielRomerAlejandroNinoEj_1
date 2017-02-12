@@ -61,6 +61,11 @@ int main(int argc, char** argv)
 
 	  MPI_Wait(&send_req1, &stat_s1);
 	  MPI_Wait(&rec_req1, &stat_r1);
+
+
+
+
+
 	        
 	  for(k=1;k<m-1;k++)
 	    {
@@ -77,7 +82,7 @@ int main(int argc, char** argv)
 	      out_array1[i] = V_new[transformer(i,a+1)];
 	      for(j=a+1;j < b-1; j++)
 		{
-		  V[transformer(i,j)] = V_new[transformer(i,j)] ;
+		  V[transformer(i,j)] = V_new[transformer(i,j)];
 		}
 	    }
 	  MPI_Irecv(in_array1, m,MPI_DOUBLE, rank-1, 0, MPI_COMM_WORLD, &rec_req2);
