@@ -6,4 +6,4 @@ data.dat: placas.c
 	mpicc -o placas placas.c 
 	mpiexec -n 4 ./placas > data.dat
 clean:
-	rm -f a.out a.dat placas.pdf
+	rm -f data.dat placas placas.pdf
